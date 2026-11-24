@@ -106,7 +106,7 @@ SELECT
     t.totalSeconds         AS totalCallSeconds,
     CONCAT(t.totalSeconds / 3600, ':',
            RIGHT('0' + CAST(t.totalSeconds % 3600 / 60 AS VARCHAR(2)), 2), ':',
-           RIGHT('0' + CAST(t.totalSeconds % 60 AS VARCHAR(2)), 2)) AS totalCallDuration   -- hh:mm:ss
+           RIGHT('0' + CAST(t.totalSeconds % 60 AS VARCHAR(2)), 2)) AS totalCallDuration   
 FROM dbo.Subscriber s
 JOIN dbo.Person pe ON pe.personID = s.personID
 LEFT JOIN (
@@ -154,7 +154,7 @@ SELECT
     r.durationSeconds,
     CONCAT(r.durationSeconds / 3600, ':',
            RIGHT('0' + CAST(r.durationSeconds % 3600 / 60 AS VARCHAR(2)), 2), ':',
-           RIGHT('0' + CAST(r.durationSeconds % 60 AS VARCHAR(2)), 2)) AS duration,   -- hh:mm:ss
+           RIGHT('0' + CAST(r.durationSeconds % 60 AS VARCHAR(2)), 2)) AS duration,   
     r.recipientNumber,
     rec.firstName                        AS recipientFirstName,
     rec.lastName                         AS recipientLastName,
@@ -237,7 +237,7 @@ BEGIN
       AND c.connectionStart >= @monthStart
       AND c.connectionStart <  @monthEnd;
 
-    SET @amount = ISNULL(@amount, 0);   -- no calls in that month = nothing to pay
+    SET @amount = ISNULL(@amount, 0);   
     RETURN @amount;
 END;
 GO
@@ -311,7 +311,7 @@ BEGIN
 
     SET @newStart   = DATEADD(DAY, 1, @end);
     SET @newEnd     = DATEADD(DAY, DATEDIFF(DAY, @start, @end), @newStart);
-    SET @endNextDay = DATEADD(DAY, 1, CAST(@end AS DATETIME));   -- first moment after the old contract
+    SET @endNextDay = DATEADD(DAY, 1, CAST(@end AS DATETIME));   
 
     IF EXISTS (SELECT 1 FROM dbo.Subscriber
                WHERE phoneNumber = @phoneNumber AND contractStartDate >= @newStart)
@@ -376,7 +376,7 @@ BEGIN
         THROW;
     END CATCH;
 
-    SELECT * FROM dbo.Subscriber WHERE subscriberID = @newSubscriberID;   -- the new contract
+    SELECT * FROM dbo.Subscriber WHERE subscriberID = @newSubscriberID;   
 END;
 GO
 
