@@ -7,7 +7,7 @@
 IF @@SERVERNAME LIKE 'MSQLDBLAB%'
 BEGIN
     PRINT 'Stopped: shared school server. Run this on your own local copy of CRA.';
-    SET NOEXEC ON;   -- run SET NOEXEC OFF; to undo
+    SET NOEXEC ON;   
 END
 GO
 
